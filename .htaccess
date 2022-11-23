@@ -1,0 +1,9 @@
+# 1. Удалить www
+RewriteCond %{ENV:HTTPS} on
+  #Если включен https
+RewriteRule .* - [E=SSL:s]
+  #То создаем переменную  ssl с текстом s
+RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
+  # Проверяем, содержит ли домен www в начале URL.
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+  # Перенаправляем удаляем www
